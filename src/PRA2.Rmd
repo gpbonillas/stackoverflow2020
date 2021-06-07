@@ -248,7 +248,7 @@ data_temp <- data_wo_na[data_wo_na$YearsCodePro %in% c("More than 50 years", "Le
 dim(data_temp)
 # datosEcuador$YearsCode[datosEcuador$YearsCode=="Less than 1 year"] <- 1
 ```
-Existen 372 valores con valores cualitativos que deben ser transformados a valores cuantitativos
+Existen 375 valores con valores cualitativos que deben ser transformados a valores cuantitativos
 
 ```{r echo=TRUE, message=FALSE, warning=FALSE}
 # Convertimos los valores categoricos en numéricos para la variable YearsCodePro
