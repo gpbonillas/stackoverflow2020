@@ -192,7 +192,7 @@ head(data_devs)
 
 ```{r echo=TRUE, message=FALSE, warning=FALSE}
 # Creamos un juego de datos resumido
-data_so <- data_devs[, c(4, 8, 9, 13, 14, 15, 16, 23, 25, 27, 33, 37, 42, 45, 50, 55, 57, 59, 61)]
+data_so <- data_devs[, c(4, 8, 9, 13, 15, 16, 23, 25, 27, 33, 37, 42, 45, 50, 55, 57, 59, 61)]
 
 head(data_so)
 ```
@@ -205,15 +205,11 @@ Se ha revisado que existen valores nulos en todas las variables seleccionadas, p
 
 Además, en este apartado se ha decidido filtrar los valores que no representan una realidad en el estudio de la variable en cuestión. Por ejemplo un valor de 0 en el sueldo anual (*variable ConvertedComp*) de un desarrollador no representa la realidad. A pesar de ser un valor que puede ser tratado como un valor extremo, para esta ocasión se lo tratará como no válido.
 ```{r echo=TRUE, message=FALSE, warning=FALSE}
-# Creamos un juego de datos resumido
-data_so <- data_devs[, c(4, 8, 9, 13, 14, 15, 16, 23, 25, 27, 33, 37, 42, 45, 50, 55, 57, 59, 61)]
-
 # Eliminar filas con valores nulos
 data_wo_na <- data_so[!is.na(data_so$Age), ]
 data_wo_na <- data_wo_na[!is.na(data_wo_na$ConvertedComp), ]
 data_wo_na <- data_wo_na[!is.na(data_wo_na$Country), ]
 data_wo_na <- data_wo_na[!is.na(data_wo_na$DatabaseWorkedWith), ]
-data_wo_na <- data_wo_na[!is.na(data_wo_na$DevType), ]
 data_wo_na <- data_wo_na[!is.na(data_wo_na$EdLevel), ]
 data_wo_na <- data_wo_na[!is.na(data_wo_na$Employment), ]
 data_wo_na <- data_wo_na[!is.na(data_wo_na$LanguageWorkedWith), ]
@@ -591,7 +587,7 @@ plot(as.factor(data_wo_na$UndergradMajor))
 
 ## Identificación y tratamiento de valores extremos.
 
-
+* Para la variable **Age**
 ```{r echo=TRUE, message=FALSE, warning=FALSE}
 boxplot(as.numeric(data_wo_na$Age), main="Valores para Age", col="gray")
 ```
@@ -615,6 +611,92 @@ data_wo_na <- data_wo_na[data_wo_na$Age > 1, ]
 boxplot(as.numeric(data_wo_na$Age), main="Valores para Age", col="gray")
 ```
 A pesar de encontrarse unos valores superiores, por fuera del tercer cuartil (75%) aún se consideran válidos. 
+
+
+* Para la variable **ConvertedComp**
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+boxplot(as.numeric(data_wo_na$ConvertedComp), main="Valores para Sueldo Anual (ConvertedComp)", col="gray")
+```
+
+Para la variable Age los valores extremos los obtenenmos de la siguiente manera:
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+atipicos_sueldo_anual <- boxplot.stats(as.numeric(data_wo_na$ConvertedComp))
+
+sort(atipicos_sueldo_anual$out, decreasing = TRUE)
+```
+
+Al ordenar los valores y analizarlos encontramos que los valores máximos que podrían considerarse outliers son los mayores o iguales a 208000. Sin embargo, para efectos del análisis vamos a considerar como valores a los no sobrepasan el límite de 500K. Por lo tanto, procedemos a borrar esas observaciones que contienen los valores superiores a el límite.
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+data_wo_na <- data_wo_na[data_wo_na$ConvertedComp <= 500000, ]
+
+# volvemos a revisar los valores outliers
+boxplot(as.numeric(data_wo_na$ConvertedComp), main="Valores para Sueldo Anual (ConvertedComp)", col="gray")
+```
+A pesar de encontrarse unos valores superiores, por fuera del tercer cuartil (75%) aún se consideran válidos.
+
+
+
+* Para la variable **WorkWeekHrs**
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+boxplot(as.numeric(data_wo_na$WorkWeekHrs), main="Valores para Horas trabajadas en la semana (WorkWeekHrs)", col="gray")
+```
+
+Para la variable Age los valores extremos los obtenenmos de la siguiente manera:
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+atipicos_horas_semanales <- boxplot.stats(as.numeric(data_wo_na$WorkWeekHrs))
+
+sort(atipicos_horas_semanales$out, decreasing = FALSE)
+```
+
+Al ordenar los valores y analizarlos encontramos que los valores máximos que podrían considerarse outliers son los mayores a 112 horas, ya que trabajar más de 16 horas diarias se encuentra poco probable. De la misma manera, se considera poco probable trabajar menos de una hora diaria (7 horas semanales, incluso en un trabajo a tiempo parcial). Por lo tanto, procedemos a borrar esas observaciones que contienen los valores superiores e inferiores a los límites mencionados.
+
+Cabe recalcar que el valor 112 se obtiene en el supuesto caso que se trabaje 16 horas diarias los 7 dias de la semana, en el caso extremo.
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+data_wo_na <- data_wo_na[data_wo_na$WorkWeekHrs <= 112, ]
+data_wo_na <- data_wo_na[data_wo_na$WorkWeekHrs >= 7, ]
+
+# volvemos a revisar los valores outliers
+boxplot(as.numeric(data_wo_na$WorkWeekHrs), main="Valores para Horas trabajadas en la semana (WorkWeekHrs)", col="gray")
+```
+A pesar de encontrarse unos valores superiores e inferiores, por fuera del tercer(75%) y primer (25%) cuartil, respectivamente; aún se consideran válidos para efectos del análisis que realizaremos.
+
+
+* Para la variable **YearsCodePro**
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+boxplot(as.numeric(data_wo_na$YearsCodePro), main="Valores para Años Profesionales (YearsCodePro)", col="gray")
+```
+
+Para la variable Age los valores extremos los obtenenmos de la siguiente manera:
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+atipicos_years_pro <- boxplot.stats(as.numeric(data_wo_na$YearsCodePro))
+
+sort(atipicos_years_pro$out, decreasing = TRUE)
+```
+
+Al ordenar los valores outliers de manera descendente, encontramos los valores en el rango entre 26 y 50 años. Sin embargo, yendo a la lógica actual en los años que podría tener un desarrollador no encontramos como valor atípico una experiencia comprendida entre los mencionados límites. Para verificar de manera más detallada esta variable, vamos a comparar la variable Age vs. la variable YearsCodePro para descartar alguna anormalidad, como que los años de profesional sean mayor a la edad actual o no haya lógica entre la una con la otra.
+
+
+Para esto vamos a proceder  a generar un data frame entre las 2 variables considerando los valores comprendidos en el rango antes mencionado.
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+data_age_years_pro <- data_wo_na[data_wo_na$YearsCodePro >= 26, c(1, 12)]
+
+# Obtenemos una variable que almacene la diferencia en la edad como profesional y la edad actual
+filas_ndf <- dim(data_age_years_pro)[1]
+
+data_age_years_pro$diferencia <- 0
+
+for(i in 1:filas_ndf) {
+  data_age_years_pro$diferencia[i] <- data_age_years_pro$Age[i] - data_age_years_pro$YearsCodePro[i]
+}
+
+
+sort(data_age_years_pro$diferencia, decreasing = TRUE)
+```
+Todos los valores en las diferencias obtenidas son lógicos. Sin embargo, a pesar de encontrarse una diferencia mínima de 8 años entre la experiencia como profesional y la edad actual, sabemos de casos extremos de niños que pueden aprender a programar o cualquier otra habilidad a corta edad, por ende no eliminaremos ningún registro.
 
 
 # Análisis de los datos
