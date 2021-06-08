@@ -1008,3 +1008,12 @@ Los resultados de nuestros modelos quizás no han sido tan buenos, pero nos ha p
 # Código
 
 El código fuente y el dataset usado para el análisis presentado en este documento se encuentra disponible en el siguiente repositorio de GitHub: https://github.com/gpbonillas/stackoverflow2020
+
+
+# Contribuciones
+
+Contribuciones                 Firma    
+----------------------------  --------------------
+Investigación previa           L.A.T.G., G.P.B.S.   
+Redacción de las respuestas    L.A.T.G., G.P.B.S.   
+Desarrollo código              L.A.T.G., G.P.B.S.   

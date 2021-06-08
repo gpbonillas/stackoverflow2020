@@ -454,6 +454,7 @@ summary {
 <li><a href="#representación-de-los-resultados-a-partir-de-tablas-y-gráficas"><span class="toc-section-number">5</span> Representación de los resultados a partir de tablas y gráficas</a></li>
 <li><a href="#conclusiones"><span class="toc-section-number">6</span> Conclusiones</a></li>
 <li><a href="#código"><span class="toc-section-number">7</span> Código</a></li>
+<li><a href="#contribuciones"><span class="toc-section-number">8</span> Contribuciones</a></li>
 </ul>
 </div>
 
@@ -1579,70 +1580,70 @@ shapiro.test(data_wo_na_muestra$ConvertedComp)</code></pre>
 ##  Shapiro-Wilk normality test
 ## 
 ## data:  data_wo_na_muestra$ConvertedComp
-## W = 0.81505, p-value &lt; 2.2e-16</code></pre>
+## W = 0.82782, p-value &lt; 2.2e-16</code></pre>
 <pre class="r"><code>#Test Age
 shapiro.test(data_wo_na_muestra$Age)</code></pre>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
 ## data:  data_wo_na_muestra$Age
-## W = 0.92616, p-value &lt; 2.2e-16</code></pre>
+## W = 0.92415, p-value &lt; 2.2e-16</code></pre>
 <pre class="r"><code>#Test YearsCodePro
 shapiro.test(data_wo_na_muestra$YearsCodePro)</code></pre>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
 ## data:  data_wo_na_muestra$YearsCodePro
-## W = 0.86135, p-value &lt; 2.2e-16</code></pre>
+## W = 0.86138, p-value &lt; 2.2e-16</code></pre>
 <pre class="r"><code>#Test WorkWeekHrs
 shapiro.test(data_wo_na_muestra$WorkWeekHrs)</code></pre>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
 ## data:  data_wo_na_muestra$WorkWeekHrs
-## W = 0.78415, p-value &lt; 2.2e-16</code></pre>
+## W = 0.76933, p-value &lt; 2.2e-16</code></pre>
 <pre class="r"><code>#Test db_techs
 shapiro.test(data_wo_na_muestra$db_techs)</code></pre>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
 ## data:  data_wo_na_muestra$db_techs
-## W = 0.89939, p-value &lt; 2.2e-16</code></pre>
+## W = 0.89582, p-value &lt; 2.2e-16</code></pre>
 <pre class="r"><code>#Test prog_langs
 shapiro.test(data_wo_na_muestra$prog_langs)</code></pre>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
 ## data:  data_wo_na_muestra$prog_langs
-## W = 0.93965, p-value &lt; 2.2e-16</code></pre>
+## W = 0.94037, p-value &lt; 2.2e-16</code></pre>
 <pre class="r"><code>#Test misc_techs
 shapiro.test(data_wo_na_muestra$misc_techs)</code></pre>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
 ## data:  data_wo_na_muestra$misc_techs
-## W = 0.79073, p-value &lt; 2.2e-16</code></pre>
+## W = 0.80474, p-value &lt; 2.2e-16</code></pre>
 <pre class="r"><code>#Test collab_techs
 shapiro.test(data_wo_na_muestra$collab_techs)</code></pre>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
 ## data:  data_wo_na_muestra$collab_techs
-## W = 0.96669, p-value &lt; 2.2e-16</code></pre>
+## W = 0.9664, p-value &lt; 2.2e-16</code></pre>
 <pre class="r"><code>#Test plat_techs
 shapiro.test(data_wo_na_muestra$plat_techs)</code></pre>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
 ## data:  data_wo_na_muestra$plat_techs
-## W = 0.9212, p-value &lt; 2.2e-16</code></pre>
+## W = 0.92027, p-value &lt; 2.2e-16</code></pre>
 <pre class="r"><code>#Test web_techs
 shapiro.test(data_wo_na_muestra$web_techs)</code></pre>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
 ## data:  data_wo_na_muestra$web_techs
-## W = 0.8876, p-value &lt; 2.2e-16</code></pre>
+## W = 0.88365, p-value &lt; 2.2e-16</code></pre>
 <p><span style=" font-weight: bold;    color: red !important;font-size: 12px;">Conclusión:</span></p>
 <p>Mediante este test podemos concluir que ningun atributo sigue una distribucion normal.</p>
 <p>Para comprobar la homocedasticidad (igualdad de varianzas entre los grupos que se van a comparar) se pueden realizar dos tipos de test <em>Levene</em> y <em>Fligner-Killeen</em>, en nuestro caso como los datos no siguen una distribución normal usaremos <em>Fligner-Killeen</em>.</p>
@@ -1912,6 +1913,31 @@ predict(m4, test_2)</code></pre>
 <div id="código" class="section level1">
 <h1><span class="header-section-number">7</span> Código</h1>
 <p>El código fuente y el dataset usado para el análisis presentado en este documento se encuentra disponible en el siguiente repositorio de GitHub: <a href="https://github.com/gpbonillas/stackoverflow2020" class="uri">https://github.com/gpbonillas/stackoverflow2020</a></p>
+</div>
+<div id="contribuciones" class="section level1">
+<h1><span class="header-section-number">8</span> Contribuciones</h1>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Contribuciones</th>
+<th align="center">Firma</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Investigación previa</td>
+<td align="center">L.A.T.G., G.P.B.S.</td>
+</tr>
+<tr class="even">
+<td align="left">Redacción de las respuestas</td>
+<td align="center">L.A.T.G., G.P.B.S.</td>
+</tr>
+<tr class="odd">
+<td align="left">Desarrollo código</td>
+<td align="center">L.A.T.G., G.P.B.S.</td>
+</tr>
+</tbody>
+</table>
 </div>
 
 
