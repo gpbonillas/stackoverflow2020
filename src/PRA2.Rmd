@@ -2,22 +2,19 @@
 title: 'Práctica 2 - Tipología y ciclo de vida de los datos'
 author: "Autores: Luis Arnaldo Torres González, Gabriel Patricio Bonilla Sanchez"
 date: Junio - 2021
-geometry: "left=2.5cm,right=2.5cm,top=1.5cm,bottom=2cm"
-lang: es-ES
 output:
-  pdf_document:
-    latex_engine: xelatex 
-    toc: yes
-    number_sections: yes
-  word_document: default
   html_document:
     highlight: default
     number_sections: yes
-    theme: cerulean
+    theme: cosmo
     toc: yes
     toc_depth: 2
     includes:
       in_header: 75.584-PEC-header.html
+  word_document: default
+  pdf_document:
+    highlight: zenburn
+    toc: yes
 ---
 
 ```{r setup, include=FALSE}
@@ -164,7 +161,6 @@ Vamos a trabajar preliminarmente con 19 variables propias del dataset original, 
 > * NEWCollabToolsWorkedWith
 > * PlatformWorkedWith
 > * WebframeWorkedWith
-
 Estas nuevas variables numéricas a generarse posteriormente servirán principalmente cuando se defina el número total de tecnologías conocidas y usadas por los encuestados. 
 
 Este nuevo dataset de variables numéricas, ayudará a dar respuesta a las siguientes preguntas:
@@ -178,14 +174,11 @@ Este nuevo dataset de variables numéricas, ayudará a dar respuesta a las sigui
 > ¿Como afecta el número de horas trabajadas a la semana sobre el sueldo que percibe anualmente el programador ecuatoriano?
 > ¿Hay relación directa entre el número de años de experiencia que tiene el programador y la edad del mismo en Ecuador?
 
-
 ```{r echo=TRUE, message=FALSE, warning=FALSE}
 # Cargamos el dataset completo
-data_devs <- read.csv('../data/survey_results_public.csv', sep=",", encoding = "UTF-8")
-
+data_devs <- read.csv('survey_results_public.csv', sep=",", encoding = "UTF-8")
 # Resumen del dataset original
 head(data_devs)
-
 ```
 
 # Integración y selección de los datos de interés a analizar
@@ -193,7 +186,6 @@ head(data_devs)
 ```{r echo=TRUE, message=FALSE, warning=FALSE}
 # Creamos un juego de datos resumido
 data_so <- data_devs[, c(4, 8, 9, 13, 15, 16, 23, 25, 27, 33, 37, 42, 45, 50, 55, 57, 59, 61)]
-
 head(data_so)
 ```
 
@@ -224,10 +216,8 @@ data_wo_na <- data_wo_na[!is.na(data_wo_na$UndergradMajor), ]
 data_wo_na <- data_wo_na[!is.na(data_wo_na$WebframeWorkedWith), ]
 data_wo_na <- data_wo_na[!is.na(data_wo_na$WorkWeekHrs), ]
 data_wo_na <- data_wo_na[!is.na(data_wo_na$YearsCodePro), ]
-
 # Campos con valores cero
 data_wo_na <- data_wo_na[data_wo_na$ConvertedComp != 0, ]
-
 head(data_wo_na)
 ```
 
@@ -244,7 +234,6 @@ Para la variable YearsCodePro observamos que el tipo de datos es "character", po
 ```{r echo=TRUE, message=FALSE, warning=FALSE}
 # Convertimos los valores categoricos en numéricos para la variable YearsCodePro
 data_temp <- data_wo_na[data_wo_na$YearsCodePro %in% c("More than 50 years", "Less than 1 year"), ]
-
 dim(data_temp)
 # datosEcuador$YearsCode[datosEcuador$YearsCode=="Less than 1 year"] <- 1
 ```
@@ -254,11 +243,8 @@ Existen 375 valores con valores cualitativos que deben ser transformados a valor
 # Convertimos los valores categoricos en numéricos para la variable YearsCodePro
 data_wo_na$YearsCodePro[data_wo_na$YearsCodePro=="Less than 1 year"] <- 1
 data_wo_na$YearsCodePro[data_wo_na$YearsCodePro=="More than 50 years"] <- 50
-
-
 # Finalmente convertimos dicha columna en númerica
 data_wo_na$YearsCodePro <- as.numeric(data_wo_na$YearsCodePro)
-
 filas_df=dim(data_wo_na)[1]
 ```
 
@@ -275,7 +261,6 @@ Primero para la base de datos, vamos a usar la columna *DatabaseWorkedWith*. La 
 
 ```{r echo=TRUE, message=FALSE, warning=FALSE}
 data_wo_na$db_techs <- 0
-
 for(i in 1:filas_df) {
   if (is.na(data_wo_na$DatabaseWorkedWith[i])) {
     data_wo_na$db_techs[i] <- 0
@@ -290,7 +275,6 @@ Para agregar una nueva variable que represente el número de lenguajes de progra
 
 ```{r echo=TRUE, message=FALSE, warning=FALSE}
 data_wo_na$prog_langs <- 0
-
 for(i in 1:filas_df) {
   if (is.na(data_wo_na$LanguageWorkedWith[i])) {
     data_wo_na$prog_langs[i] <- 0
@@ -305,7 +289,6 @@ Ahora vamos a agregar una nueva variable para el número de frameworks, librerí
 
 ```{r echo=TRUE, message=FALSE, warning=FALSE}
 data_wo_na$misc_techs <- 0
-
 for(i in 1:filas_df) {
   if (is.na(data_wo_na$MiscTechWorkedWith[i])) {
     data_wo_na$misc_techs[i] <- 0
@@ -320,7 +303,6 @@ Haremos lo mismo para el número de herramientras colaborativas que usa el desar
 
 ```{r echo=TRUE, message=FALSE, warning=FALSE}
 data_wo_na$collab_techs <- 0
-
 for(i in 1:filas_df) {
   if (is.na(data_wo_na$NEWCollabToolsWorkedWith[i])) {
     data_wo_na$collab_techs[i] <- 0
@@ -335,7 +317,6 @@ También vamos a agregar una variable para el número de plataformas que usa el 
 
 ```{r echo=TRUE, message=FALSE, warning=FALSE}
 data_wo_na$plat_techs <- 0
-
 for(i in 1:filas_df) {
   if (is.na(data_wo_na$PlatformWorkedWith[i])) {
     data_wo_na$plat_techs[i] <- 0
@@ -350,7 +331,6 @@ Finalmente, agregaremos una variable para el número de *frameworks web* que usa
 
 ```{r echo=TRUE, message=FALSE, warning=FALSE}
 data_wo_na$web_techs <- 0
-
 for(i in 1:filas_df) {
   if (is.na(data_wo_na$WebframeWorkedWith[i])) {
     data_wo_na$web_techs[i] <- 0
@@ -390,34 +370,23 @@ La variable *EdLevel* tiene valores como cadenas de texto muy extensas que dific
 ```{r echo=TRUE, message=FALSE, warning=FALSE}
 # Reasigamos el valor
 data_wo_na$EdLevel[data_wo_na$EdLevel=="I never completed any formal education"] <- 'NEVER'
-
 # Reasigamos el valor
 data_wo_na$EdLevel[data_wo_na$EdLevel=="Primary/elementary school"] <- 'PRIMARY'
-
 # Reasigamos el valor
 data_wo_na$EdLevel[data_wo_na$EdLevel=="Secondary school (e.g. American high school, German Realschule or Gymnasium, etc.)"] <- 'SECONDARY'
-
 # Reasigamos el valor
 data_wo_na$EdLevel[data_wo_na$EdLevel=="Some college/university study without earning a degree"] <- 'SOME_STUDY_WITHOUT_DEGREE'
-
 # Reasigamos el valor
 data_wo_na$EdLevel[data_wo_na$EdLevel=="Associate degree (A.A., A.S., etc.)"] <- 'ASSOCIATE'
-
 # Reasigamos el valor
 data_wo_na$EdLevel[data_wo_na$EdLevel=="Bachelor’s degree (B.A., B.S., B.Eng., etc.)"] <- 'BACHELOR'
-
 # Reasigamos el valor
 data_wo_na$EdLevel[data_wo_na$EdLevel=="Master’s degree (M.A., M.S., M.Eng., MBA, etc.)"] <- 'MASTER'
-
 # Reasigamos el valor
 data_wo_na$EdLevel[data_wo_na$EdLevel=="Professional degree (JD, MD, etc.)"] <- 'PROFESSIONAL'
-
 # Reasigamos el valor
 data_wo_na$EdLevel[data_wo_na$EdLevel=="Other doctoral degree (Ph.D., Ed.D., etc.)"] <- 'OTHER_PHD'
-
-
 table(as.factor(data_wo_na$EdLevel))
-
 plot(as.factor(data_wo_na$EdLevel))
 ```
 
@@ -435,27 +404,19 @@ De la misma manera procedemos con la variable *Employment*, para lo cual vamos a
 ```{r echo=TRUE, message=FALSE, warning=FALSE}
 # Reasigamos el valor
 data_wo_na$Employment[data_wo_na$Employment=="Employed full-time"] <- 'FULL_TIME'
-
 # Reasigamos el valor
 data_wo_na$Employment[data_wo_na$Employment=="Employed part-time"] <- 'PART_TIME'
-
 # Reasigamos el valor
 data_wo_na$Employment[data_wo_na$Employment=="Independent contractor, freelancer, or self-employed"] <- 'FREELANCER'
-
 # Reasigamos el valor
 data_wo_na$Employment[data_wo_na$Employment=="Not employed, but looking for work"] <- 'NOT_EMPLOYED_LOOKING_FOR'
-
 # Reasigamos el valor
 data_wo_na$Employment[data_wo_na$Employment=="Not employed, and not looking for work"] <- 'NOT_EMPLOYED_NOT_LOOKING_FOR'
-
 # Reasigamos el valor
 data_wo_na$Employment[data_wo_na$Employment=="Student"] <- 'STUDENT'
-
 # Reasigamos el valor
 data_wo_na$Employment[data_wo_na$Employment=="Retired"] <- 'RETIRED'
-
 table(as.factor(data_wo_na$Employment))
-
 plot(as.factor(data_wo_na$Employment))
 ```
 
@@ -471,21 +432,15 @@ Para la variable *NEWOvertime* vamos a realizar una reasignación de valores, co
 ```{r echo=TRUE, message=FALSE, warning=FALSE}
 # Reasigamos el valor
 data_wo_na$NEWOvertime[data_wo_na$NEWOvertime=="Never"] <- 'NEVER'
-
 # Reasigamos el valor
 data_wo_na$NEWOvertime[data_wo_na$NEWOvertime=="Occasionally: 1-2 days per quarter but less than monthly"] <- 'OCCASIONALLY'
-
 # Reasigamos el valor
 data_wo_na$NEWOvertime[data_wo_na$NEWOvertime=="Often: 1-2 days per week or more"] <- 'OFTEN'
-
 # Reasigamos el valor
 data_wo_na$NEWOvertime[data_wo_na$NEWOvertime=="Rarely: 1-2 days per year or less"] <- 'RARELY'
-
 # Reasigamos el valor
 data_wo_na$NEWOvertime[data_wo_na$NEWOvertime=="Sometimes: 1-2 days per month but less than weekly"] <- 'SOMETIMES'
-
 table(as.factor(data_wo_na$NEWOvertime))
-
 plot(as.factor(data_wo_na$NEWOvertime))
 ```
 
@@ -504,24 +459,17 @@ Para la variable *SOPartFreq* vamos a realizar una reasignación de valores, con
 ```{r echo=TRUE, message=FALSE, warning=FALSE}
 # Reasigamos el valor
 data_wo_na$SOPartFreq[data_wo_na$SOPartFreq=="Less than once per month or monthly"] <- 'LESS_ONCE_MONTH'
-
 # Reasigamos el valor
 data_wo_na$SOPartFreq[data_wo_na$SOPartFreq=="A few times per month or weekly"] <- 'FEW_TIMES_MONTH'
-
 # Reasigamos el valor
 data_wo_na$SOPartFreq[data_wo_na$SOPartFreq=="Multiple times per day"] <- 'MULTIPLE_TIMES_DAY'
-
 # Reasigamos el valor
 data_wo_na$SOPartFreq[data_wo_na$SOPartFreq=="I have never participated in Q&A on Stack Overflow"] <- 'NEVER'
-
 # Reasigamos el valor
 data_wo_na$SOPartFreq[data_wo_na$SOPartFreq=="A few times per week"] <- 'FEW_TIMES_WEEK'
-
 # Reasigamos el valor
 data_wo_na$SOPartFreq[data_wo_na$SOPartFreq=="Daily or almost daily"] <- 'DAILY'
-
 table(as.factor(data_wo_na$SOPartFreq))
-
 plot(as.factor(data_wo_na$SOPartFreq))
 ```
 
@@ -545,43 +493,29 @@ Para la variable *UndergradMajor* vamos a realizar una reasignación de valores,
 ```{r echo=TRUE, message=FALSE, warning=FALSE}
 # Reasigamos el valor
 data_wo_na$UndergradMajor[data_wo_na$UndergradMajor=="Computer science, computer engineering, or software engineering"] <- 'COMPUTER_SCIENCE'
-
 # Reasigamos el valor
 data_wo_na$UndergradMajor[data_wo_na$UndergradMajor=="Web development or web design"] <- 'WEB_DEVELOPMENT'
-
 # Reasigamos el valor
 data_wo_na$UndergradMajor[data_wo_na$UndergradMajor=="Information systems, information technology, or system administration"] <- 'INFORMATION_SYSTEMS'
-
 # Reasigamos el valor
 data_wo_na$UndergradMajor[data_wo_na$UndergradMajor=="Mathematics or statistics"] <- 'MATHS_STATS'
-
 # Reasigamos el valor
 data_wo_na$UndergradMajor[data_wo_na$UndergradMajor=="Another engineering discipline (such as civil, electrical, mechanical, etc.)"] <- 'ANOTHER_ENGINEERING_DISCIPLINE'
-
 # Reasigamos el valor
 data_wo_na$UndergradMajor[data_wo_na$UndergradMajor=="A business discipline (such as accounting, finance, marketing, etc.)"] <- 'BUSINESS'
-
 # Reasigamos el valor
 data_wo_na$UndergradMajor[data_wo_na$UndergradMajor=="A health science (such as nursing, pharmacy, radiology, etc.)"] <- 'HEALTH'
-
 # Reasigamos el valor
 data_wo_na$UndergradMajor[data_wo_na$UndergradMajor=="A humanities discipline (such as literature, history, philosophy, etc.)"] <- 'HUMANITIES'
-
 # Reasigamos el valor
 data_wo_na$UndergradMajor[data_wo_na$UndergradMajor=="A natural science (such as biology, chemistry, physics, etc.)"] <- 'NATURAL_SCIENCE'
-
 # Reasigamos el valor
 data_wo_na$UndergradMajor[data_wo_na$UndergradMajor=="A social science (such as anthropology, psychology, political science, etc.)"] <- 'SOCIAL_SCIENCE'
-
 # Reasigamos el valor
 data_wo_na$UndergradMajor[data_wo_na$UndergradMajor=="Fine arts or performing arts (such as graphic design, music, studio art, etc.)"] <- 'FINE_ARTS'
-
 # Reasigamos el valor
 data_wo_na$UndergradMajor[data_wo_na$UndergradMajor=="I never declared a major"] <- 'NEVER_MAJOR'
-
-
 table(as.factor(data_wo_na$UndergradMajor))
-
 plot(as.factor(data_wo_na$UndergradMajor))
 ```
 
@@ -595,7 +529,6 @@ boxplot(as.numeric(data_wo_na$Age), main="Valores para Age", col="gray")
 Para la variable Age los valores extremos los obtenenmos de la siguiente manera:
 ```{r echo=TRUE, message=FALSE, warning=FALSE}
 atipicos_age <- boxplot.stats(as.numeric(data_wo_na$Age))
-
 sort(atipicos_age$out, decreasing = TRUE)
 ```
 
@@ -606,10 +539,10 @@ Por lo tanto, procedemos a borrar esas observaciones que los contienen
 ```{r echo=TRUE, message=FALSE, warning=FALSE}
 data_wo_na <- data_wo_na[data_wo_na$Age < 96, ]
 data_wo_na <- data_wo_na[data_wo_na$Age > 1, ]
-
 # volvemos a revisar los valores outliers
 boxplot(as.numeric(data_wo_na$Age), main="Valores para Age", col="gray")
 ```
+
 A pesar de encontrarse unos valores superiores, por fuera del tercer cuartil (75%) aún se consideran válidos. 
 
 
@@ -622,7 +555,6 @@ boxplot(as.numeric(data_wo_na$ConvertedComp), main="Valores para Sueldo Anual (C
 Para la variable Age los valores extremos los obtenenmos de la siguiente manera:
 ```{r echo=TRUE, message=FALSE, warning=FALSE}
 atipicos_sueldo_anual <- boxplot.stats(as.numeric(data_wo_na$ConvertedComp))
-
 sort(atipicos_sueldo_anual$out, decreasing = TRUE)
 ```
 
@@ -630,10 +562,10 @@ Al ordenar los valores y analizarlos encontramos que los valores máximos que po
 
 ```{r echo=TRUE, message=FALSE, warning=FALSE}
 data_wo_na <- data_wo_na[data_wo_na$ConvertedComp <= 500000, ]
-
 # volvemos a revisar los valores outliers
 boxplot(as.numeric(data_wo_na$ConvertedComp), main="Valores para Sueldo Anual (ConvertedComp)", col="gray")
 ```
+
 A pesar de encontrarse unos valores superiores, por fuera del tercer cuartil (75%) aún se consideran válidos.
 
 
@@ -647,7 +579,6 @@ boxplot(as.numeric(data_wo_na$WorkWeekHrs), main="Valores para Horas trabajadas 
 Para la variable Age los valores extremos los obtenenmos de la siguiente manera:
 ```{r echo=TRUE, message=FALSE, warning=FALSE}
 atipicos_horas_semanales <- boxplot.stats(as.numeric(data_wo_na$WorkWeekHrs))
-
 sort(atipicos_horas_semanales$out, decreasing = FALSE)
 ```
 
@@ -657,10 +588,10 @@ Cabe recalcar que el valor 112 se obtiene en el supuesto caso que se trabaje 16 
 ```{r echo=TRUE, message=FALSE, warning=FALSE}
 data_wo_na <- data_wo_na[data_wo_na$WorkWeekHrs <= 112, ]
 data_wo_na <- data_wo_na[data_wo_na$WorkWeekHrs >= 7, ]
-
 # volvemos a revisar los valores outliers
 boxplot(as.numeric(data_wo_na$WorkWeekHrs), main="Valores para Horas trabajadas en la semana (WorkWeekHrs)", col="gray")
 ```
+
 A pesar de encontrarse unos valores superiores e inferiores, por fuera del tercer(75%) y primer (25%) cuartil, respectivamente; aún se consideran válidos para efectos del análisis que realizaremos.
 
 
@@ -673,7 +604,6 @@ boxplot(as.numeric(data_wo_na$YearsCodePro), main="Valores para Años Profesiona
 Para la variable Age los valores extremos los obtenenmos de la siguiente manera:
 ```{r echo=TRUE, message=FALSE, warning=FALSE}
 atipicos_years_pro <- boxplot.stats(as.numeric(data_wo_na$YearsCodePro))
-
 sort(atipicos_years_pro$out, decreasing = TRUE)
 ```
 
@@ -683,17 +613,12 @@ Al ordenar los valores outliers de manera descendente, encontramos los valores e
 Para esto vamos a proceder  a generar un data frame entre las 2 variables considerando los valores comprendidos en el rango antes mencionado.
 ```{r echo=TRUE, message=FALSE, warning=FALSE}
 data_age_years_pro <- data_wo_na[data_wo_na$YearsCodePro >= 26, c(1, 12)]
-
 # Obtenemos una variable que almacene la diferencia en la edad como profesional y la edad actual
 filas_ndf <- dim(data_age_years_pro)[1]
-
 data_age_years_pro$diferencia <- 0
-
 for(i in 1:filas_ndf) {
   data_age_years_pro$diferencia[i] <- data_age_years_pro$Age[i] - data_age_years_pro$YearsCodePro[i]
 }
-
-
 sort(data_age_years_pro$diferencia, decreasing = TRUE)
 ```
 Todos los valores en las diferencias obtenidas son lógicos. Sin embargo, a pesar de encontrarse una diferencia mínima de 8 años entre la experiencia como profesional y la edad actual, sabemos de casos extremos de niños que pueden aprender a programar o cualquier otra habilidad a corta edad, por ende no eliminaremos ningún registro.
@@ -701,8 +626,292 @@ Todos los valores en las diferencias obtenidas son lógicos. Sin embargo, a pesa
 
 # Análisis de los datos
 
-# Representación de los resultados a partir de tablas y gráficas
+## Selección de los grupos de datos a analizar
 
-# Resolución del problema
+Se seleccionan las variables que se usarán de nuestro dataset las cuales serán las que darán respuestas a nuestros cuestionamientos iniciales. Alguna de estas puede no ser relevantes en los siguientes análisis ya que pueden no tener afectación en las respuestas que se buscan.
 
-# Código
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+
+#Discretizamos  por Age
+data_wo_na$nivel_edad <- cut(data_wo_na$Age, breaks = c(0,18,35,65,100), labels = c("Niño", "Joven", "Adulto", "Adulto M"))
+plot(as.factor(data_wo_na$nivel_edad))
+
+# Tamaño de nuestro dataset y nombre de las columnas
+dim(data_wo_na)
+names(data_wo_na)
+
+#Resumen de los valores
+summary(data_wo_na)
+```
+
+## Comprobación de la normalidad y homogeneidad de la varianza
+
+Para este apartado trabajaremos con un análisis visual mediante graficas que permiten observar la similitud entre las distribuciones de los datos y una distribución normal ideal, además realizaremos tests de Shapiro-Wilk para revalidar la normalidad de las variables, asumiremos como hipótesis nula que la población está distribuida normalmente, si el p-valor es menor  al nivel de significancia𝛼 = 0.05.
+
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+
+#Grafica ConvertedComp
+qqnorm(data_wo_na$ConvertedComp)
+qqline(data_wo_na$ConvertedComp,col=2)
+
+#Grafica Age
+qqnorm(data_wo_na$Age)
+qqline(data_wo_na$Age,col=2)
+
+#Grafica YearsCodePro
+qqnorm(data_wo_na$YearsCodePro)
+qqline(data_wo_na$YearsCodePro,col=2)
+
+#Grafica WorkWeekHrs
+qqnorm(data_wo_na$WorkWeekHrs)
+qqline(data_wo_na$WorkWeekHrs,col=2)
+
+#Grafica db_techs
+qqnorm(data_wo_na$db_techs)
+qqline(data_wo_na$db_techs,col=2)
+
+#Grafica prog_langs
+qqnorm(data_wo_na$prog_langs)
+qqline(data_wo_na$prog_langs,col=2)
+
+#Grafica misc_techs
+qqnorm(data_wo_na$misc_techs)
+qqline(data_wo_na$misc_techs,col=2)
+
+#Grafica collab_techs
+qqnorm(data_wo_na$collab_techs)
+qqline(data_wo_na$collab_techs,col=2)
+
+#Grafica plat_techs
+qqnorm(data_wo_na$plat_techs)
+qqline(data_wo_na$plat_techs,col=2)
+
+#Grafica web_techs
+qqnorm(data_wo_na$web_techs)
+qqline(data_wo_na$web_techs,col=2)
+```
+
+Podemos observar en los histogramas que ninguno de los atributos se asemeja a una normal, el más cercano es el campo collab_techs.
+
+Ahora comprobaremos mediante el test de shapiro si nuestra observación es correcta.
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+#Realizamos una muestra de 5.000 registros, esto para aplicar el test de shapiro
+n<-5000
+muestra<- sample(1:nrow(data_wo_na),size=n,replace=FALSE)
+data_wo_na_muestra<- data_wo_na[muestra, ]
+
+#Test ConvertedComp
+shapiro.test(data_wo_na_muestra$ConvertedComp)
+
+#Test Age
+shapiro.test(data_wo_na_muestra$Age)
+
+#Test YearsCodePro
+shapiro.test(data_wo_na_muestra$YearsCodePro)
+
+#Test WorkWeekHrs
+shapiro.test(data_wo_na_muestra$WorkWeekHrs)
+
+#Test db_techs
+shapiro.test(data_wo_na_muestra$db_techs)
+
+#Test prog_langs
+shapiro.test(data_wo_na_muestra$prog_langs)
+
+#Test misc_techs
+shapiro.test(data_wo_na_muestra$misc_techs)
+
+#Test collab_techs
+shapiro.test(data_wo_na_muestra$collab_techs)
+
+#Test plat_techs
+shapiro.test(data_wo_na_muestra$plat_techs)
+
+#Test web_techs
+shapiro.test(data_wo_na_muestra$web_techs)
+
+```
+
+Mediante este test podemos concluir que ningun atributo sigue una distribucion normal.
+
+
+Para comprobar la homocedasticidad (igualdad de varianzas entre los grupos que se van a comparar) se pueden realizar dos tipos de test Levene y Fligner-Killeen, en nuestro caso como los datos no siguen una distribución normal usaremos  Fligner-Killeen.
+
+Compararemos la varianza de ConvertedComp entre los grupos de nivel_edad, EdLevel, Employment y NEWOvertime.
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+#Homocedasticidad
+fligner.test(ConvertedComp ~ nivel_edad, data = data_wo_na)
+fligner.test(ConvertedComp ~ EdLevel, data = data_wo_na)
+fligner.test(ConvertedComp ~ Employment, data = data_wo_na)
+fligner.test(ConvertedComp ~ NEWOvertime, data = data_wo_na)
+
+```
+Dado que en todos los casos el valor de p-value es inferior a 0.05 se no se acepta la hipótesis de que las varianzas son homogéneas. 
+
+## Pruebas estadísticas
+
+### Comparación entre más de dos grupos
+
+En este caso queremos conocer si el número de lenguajes de programación que maneja un programador es similar en las situaciones laborales que se puedan tener (FULL_TIME,PART_TIME,FREELANCER, etc.). 
+
+Para esto usaremos la prueba de Kruskal-Wallis, que es un método no paramétrico que busca probar si un grupo de datos proviene de una misma población.
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+
+#Prueba de Kruskal-Wallis entre prog_langs y Employment
+kruskal.test(prog_langs ~ Employment, data = data_wo_na)
+
+#Representación visual
+boxplot(data_wo_na$prog_langs~data_wo_na$Employment, ylab="IGF-I",xlab="Employment")
+
+
+```
+
+El valor de p-valor obtenido es menor al nivel de significancia se puede concluir que el número de lenguajes que maneja un programador dado su tipo de trabajo es diferente dependiendo de los tipos de situaciones laborales que se estén.
+
+### Correlación  con el salario
+
+En nuestra búsqueda de conocer cómo se relacionan los distintos atributos del dataset buscaremos la correlación que existe entre estos campos, dado que nuestros valores son no paramétricos, utilizaremos la correlación de Spearman.
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+
+#Correlación ConvertedComp-Age
+cor.test(data_wo_na$ConvertedComp,data_wo_na$Age, method="spearman")
+
+#Correlación ConvertedComp-YearsCodePro
+cor.test(data_wo_na$ConvertedComp,data_wo_na$YearsCodePro, method="spearman")
+
+#Correlación ConvertedComp-WorkWeekHrs
+cor.test(data_wo_na$ConvertedComp,data_wo_na$WorkWeekHrs, method="spearman")
+
+#Correlación ConvertedComp-db_techs
+cor.test(data_wo_na$ConvertedComp,data_wo_na$db_techs, method="spearman")
+
+#Correlación ConvertedComp-prog_langs
+cor.test(data_wo_na$ConvertedComp,data_wo_na$prog_langs, method="spearman")
+
+#Correlación ConvertedComp-misc_techs
+cor.test(data_wo_na$ConvertedComp,data_wo_na$misc_techs, method="spearman")
+
+#Correlación ConvertedComp-collab_techs
+cor.test(data_wo_na$ConvertedComp,data_wo_na$collab_techs, method="spearman")
+
+#Correlación ConvertedComp-plat_techs
+cor.test(data_wo_na$ConvertedComp,data_wo_na$plat_techs, method="spearman")
+
+#Correlación ConvertedComp-web_techs
+cor.test(data_wo_na$ConvertedComp,data_wo_na$web_techs, method="spearman")
+
+#Grafica ConvertedComp-Age
+plot(data_wo_na$ConvertedComp, data_wo_na$Age, pch = 19, col = "lightblue")
+abline(lm(data_wo_na$Age ~ data_wo_na$ConvertedComp), col = "red", lwd = 3)
+text(paste("Correlación:", round(cor(data_wo_na$ConvertedComp, data_wo_na$Age, method="spearman"), 2)), x = 25, y = 95)
+
+#Grafica ConvertedComp-YearsCodePro
+plot(data_wo_na$ConvertedComp, data_wo_na$YearsCodePro, pch = 19, col = "lightblue")
+abline(lm(data_wo_na$YearsCodePro ~ data_wo_na$ConvertedComp), col = "red", lwd = 3)
+text(paste("Correlación:", round(cor(data_wo_na$ConvertedComp, data_wo_na$YearsCodePro, method="spearman"), 2)), x = 25, y = 95)
+
+#Grafica ConvertedComp-WorkWeekHrs
+plot(data_wo_na$ConvertedComp, data_wo_na$WorkWeekHrs, pch = 19, col = "lightblue")
+abline(lm(data_wo_na$WorkWeekHrs ~ data_wo_na$ConvertedComp), col = "red", lwd = 3)
+text(paste("Correlación:", round(cor(data_wo_na$ConvertedComp, data_wo_na$WorkWeekHrs, method="spearman"), 2)), x = 25, y = 95)
+
+
+```
+
+Vemos que los atributos de Age y YearsCodePro obtuvieron las correlaciones más grandes respecto al salario (0.45-0.46) y los atributos WorkWeekHrs-db_techs fueron los que menos correlación tienen, esto nos da a entender el número de horas trabajadas no explica tanto el salario de los programadores, al igual que el número de tecnologías que manejan.
+
+### Regresión lineal y multiple
+
+En el paso anterior hemos conocido los campos que están más relacionados, ahora usaremos un método de regresión para poder conocer el salario de los programadores a través de otras variables.
+
+Atributos cuantitativos
+
+* *YearsCodePro*
+* *Age*
+* *WorkWeekHrs*
+
+Atributos cualitativos
+
+* *Country*
+* *EdLevel*
+* *Employment*
+
+Atributo a predecir
+
+* *ConvertedComp*
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+#Seleccionamos los atriburos a usar
+data_wo_na_select<-data_wo_na[,c("ConvertedComp","YearsCodePro", "Age", "WorkWeekHrs","Country", "EdLevel", "Employment")]
+
+
+#Regresión lineal
+m1 = lm(ConvertedComp ~ YearsCodePro,data=data_wo_na_select)
+
+m2 = lm(ConvertedComp ~ Age,data=data_wo_na_select)
+
+m3 = lm(ConvertedComp ~ WorkWeekHrs,data=data_wo_na_select)
+
+#Regresión lineal multiple
+ 
+m4 = lm(ConvertedComp ~ YearsCodePro + Country,data=data_wo_na_select)
+
+m5 = lm(ConvertedComp ~ Age + EdLevel,data=data_wo_na_select)
+
+m6 = lm(ConvertedComp ~ WorkWeekHrs + Employment,data=data_wo_na_select)
+
+m7 <- lm(ConvertedComp ~ ., data = data_wo_na_select)
+
+
+#Coeficientes de determinación
+tabla.coeficientes <- matrix(c(1, summary(m1)$r.squared,
+                              2, summary(m2)$r.squared,
+                              3, summary(m3)$r.squared,
+                              4, summary(m4)$r.squared,
+                              5, summary(m5)$r.squared,
+                              6, summary(m6)$r.squared,
+                              7,summary(m7)$r.squared),
+                              ncol = 2, byrow = TRUE)
+
+colnames(tabla.coeficientes) <- c("Modelo", "R^2")
+tabla.coeficientes
+
+#Grafica modelo
+qqnorm(m4$residuals)
+qqline(m4$residuals)
+
+```
+Vemos que los coeficientes no han salido tan altos, en este caso los modelos 4 y 7 son los que han dado mejores resultados con 44% de capacidad de predicción, en este caso nos quedamos con el modelo 4 ya que el 7 contiene todas los atributos y no estaríamos reduciendo entradas. 
+
+Se aplican 2 test con el modelo 4 para ver su funcionalidad.
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+
+#Test usando el modelo 4
+
+test_1 <- data.frame(
+  YearsCodePro = 10,
+  Country = "United States"
+)
+# Predecir salario
+predict(m4, test_1)
+
+
+test_2 <- data.frame(
+  YearsCodePro = 10,
+  Country = "France"
+)
+# Predecir salario
+predict(m4, test_2)
+
+```
+# Conclusión 
+
+Dados los resultados obtenidos en las pruebas que hemos realizado los resultados no han sido del todo satisfactorio ya que hemos encontrado una baja correlación entre los atributos de nuestro dataset lo que ha limitado la capacidad de predicción de los modelos de regresión lineal simple y múltiple, obteniendo solo un 44% de capacidad de acierto en la predicción de los salarios bajo los atributos de YearsCodePro y Country, por otra parte, el ejercicio de comparación entre grupos nos dice que el numero de lenguajes de programación aprendidos va a depender de la situación laboral, lo que tiene sentido. Siguiendo esta misma línea, los resultados no son extremos, sino que igual se ve una coloración en los trabajos full time y freelancer, lo que da a entender que estas personas tienen mayor experiencia que un part time.
+Los resultados de nuestros modelos quizás no han sido tan buenos, pero nos ha permitido visualizar la importancia de que la información que estemos usando como fuente tenga la menor cantidad de valores ausentes posibles, ya que con los tratamientos de integración y limpieza se puede mejorar estos resultados de forma estratégica, pero siempre nos estarán alejando de resultados fundamentados en los datos de origen. 
+
