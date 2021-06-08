@@ -20,6 +20,7 @@ La estructura general del proyecto es la siguiente:
 * **src**: Esta carpeta contiene:
   * **PRA2.Rmd**: Proyecto RStudio en lenguaje RMarkdown. Use RStudio para abrir y editar el archivo.
   * **75.584-PEC-header.html**: Encabezado del archivo final que genera el archivo del proyecto.
+  * **PRAC2_M2_851.txt**: Archivo de entrega de la práctica 2 con el link del proyecto.
 * **data**: Contiene el dataset *survey_results_public.csv* original
 * **docs**: Contiene los archivos PDF y HTML del proyecto generados desde RStudio.
 * **LICENSE**: Archivo que contiene la declaración de la licencia usada para este proyecto. En este caso se ha usado la licencia MIT.
