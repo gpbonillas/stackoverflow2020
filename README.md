@@ -1,4 +1,4 @@
-# Dataset stackoverflow2020
+# Resultados de la encuesta pública para desarrolladores de Stack Overflow 2020
 
 ## Descripción del proyecto
 Proyecto colaborativo para identificar los datos relevantes en el dataset [StackOverflow Annual Developer Survey 2020](https://www.kaggle.com/aitzaz/stack-overflow-developer-survey-2020) para un proyecto analítico usando herramientas de integración, limpieza, validación y análisis de las mismas. La fuente original de datos proviene del portal [Stack Overflow](https://insights.stackoverflow.com/survey)
