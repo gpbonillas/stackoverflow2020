@@ -13,15 +13,21 @@ output:
       in_header: 75.584-PEC-header.html
   word_document: default
   pdf_document:
+<<<<<<< HEAD
     highlight: zenburn
     toc: yes
+=======
+    latex_engine: xelatex 
+    toc: yes
+    number_sections: yes
+>>>>>>> conclusiones
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-```{r echo=TRUE, message=FALSE, warning=FALSE}
+```{r echo=FALSE, message=FALSE, warning=FALSE}
 library(kableExtra)
 ```
 
@@ -34,19 +40,30 @@ En esta práctica se elabora un caso práctico orientado a aprender a identifica
 
 
 ## Competencias {.unlisted .unnumbered}
+
 En esta práctica se desarrollan las siguientes competencias del Máster de Data Science:
+
 * Capacidad de analizar un problema en el nivel de abstracción adecuado a cada situación y aplicar las habilidades y conocimientos adquiridos para abordarlo y resolverlo.
+
 * Capacidad para aplicar las técnicas específicas de tratamiento de datos (integración, ransformación, limpieza y validación) para su posterior análisis.
 
 
 ## Objetivos {.unlisted .unnumbered}
+
 Los objetivos concretos de esta práctica son:
+
 * Aprender a aplicar los conocimientos adquiridos y su capacidad de resolución de problemas en entornos nuevos o poco conocidos dentro de contextos más amplios o multidisciplinares.
+
 * Saber identificar los datos relevantes y los tratamientos necesarios (integración, limpieza y validación) para llevar a cabo un proyecto analítico.
+
 * Aprender a analizar los datos adecuadamente para abordar la información contenida en los datos.
+
 * Identificar la mejor representación de los resultados para aportar conclusiones sobre el problema planteado en el proceso analítico.
+
 * Actuar con los principios éticos y legales relacionados con la manipulación de datos en función del ámbito de aplicación.
+
 * Desarrollar las habilidades de aprendizaje que les permitan continuar estudiando de un modo que tendrá que ser en gran medida autodirigido o autónomo.
+
 * Desarrollar la capacidad de búsqueda, gestión y uso de información y recursos en el ámbito de la ciencia de datos.
 
 # Descripción del dataset
@@ -134,21 +151,20 @@ Sin embargo, para efectos del análisis, del dataset original, se excluirán las
 2. ConvertedComp
 3. Country
 4. DatabaseWorkedWith
-5. DevType
-6. EdLevel
-7. Employment
-8. LanguageWorkedWith
-9. MiscTechWorkedWith
-10. NEWCollabToolsWorkedWith
-11. NEWLearn
-12. NEWOvertime
-13. OpSys
-14. PlatformWorkedWith
-15. SOPartFreq
-16. UndergradMajor
-17. WebframeWorkedWith
-18. WorkWeekHrs
-19. YearsCodePro
+5. EdLevel
+6. Employment
+7. LanguageWorkedWith
+8. MiscTechWorkedWith
+9. NEWCollabToolsWorkedWith
+10. NEWLearn
+11. NEWOvertime
+12. OpSys
+13. PlatformWorkedWith
+14. SOPartFreq
+15. UndergradMajor
+16. WebframeWorkedWith
+17. WorkWeekHrs
+18. YearsCodePro
 
 
 Muchos de estos campos no son relevantes para el alcance de la Práctica #1 y #2; otros reflejan deseos de los programadores respecto a tecnologías, para lo cual solo tomaremos los datos que reflejan la experiencia actual del programador.
@@ -163,16 +179,10 @@ Vamos a trabajar preliminarmente con 19 variables propias del dataset original, 
 > * WebframeWorkedWith
 Estas nuevas variables numéricas a generarse posteriormente servirán principalmente cuando se defina el número total de tecnologías conocidas y usadas por los encuestados. 
 
-Este nuevo dataset de variables numéricas, ayudará a dar respuesta a las siguientes preguntas:
+Este dataset ayudará a dar respuesta a la siguientes interrogantes:
 
-`r text_spec("REVISAR...", color = "red", font_size=14, bold = T)`
-
-> ¿Hay relación directa entre el número de tecnologías que domina el programador y su sueldo anual, en Ecuador?
-> ¿Hay relación directa entre el número de años de experiencia que tiene el programador y el número de tecnologías que domina, en Ecuador?
-> ¿En Ecuador, influye el número de años de experiencia del programador con el número de tecnologías que domina o conoce?
-> ¿Qué relación hay entre el número de años de experiencia del programador y el sueldo que percibe anualmente en el mercado ecuatoriano?
-> ¿Como afecta el número de horas trabajadas a la semana sobre el sueldo que percibe anualmente el programador ecuatoriano?
-> ¿Hay relación directa entre el número de años de experiencia que tiene el programador y la edad del mismo en Ecuador?
+> ¿Existe una fuerte correlación entre las variables seleccionadas en nuestro dataset?
+> ¿Cuáles son las variables que influyen en el salario de los entrevistados de la comunidad Stack Overflow?
 
 ```{r echo=TRUE, message=FALSE, warning=FALSE}
 # Cargamos el dataset completo
@@ -529,7 +539,13 @@ boxplot(as.numeric(data_wo_na$Age), main="Valores para Age", col="gray")
 Para la variable Age los valores extremos los obtenenmos de la siguiente manera:
 ```{r echo=TRUE, message=FALSE, warning=FALSE}
 atipicos_age <- boxplot.stats(as.numeric(data_wo_na$Age))
+<<<<<<< HEAD
 sort(atipicos_age$out, decreasing = TRUE)
+=======
+
+head(sort(atipicos_age$out, decreasing = TRUE), n=10)
+tail(sort(atipicos_age$out, decreasing = TRUE), n=10)
+>>>>>>> conclusiones
 ```
 
 Al ordenar los valores y analizarlos encontramos que los valores máximos que podrían considerarse outliers son los mayores o iguales a 96 y los menores o iguales a 1.
@@ -555,7 +571,13 @@ boxplot(as.numeric(data_wo_na$ConvertedComp), main="Valores para Sueldo Anual (C
 Para la variable Age los valores extremos los obtenenmos de la siguiente manera:
 ```{r echo=TRUE, message=FALSE, warning=FALSE}
 atipicos_sueldo_anual <- boxplot.stats(as.numeric(data_wo_na$ConvertedComp))
+<<<<<<< HEAD
 sort(atipicos_sueldo_anual$out, decreasing = TRUE)
+=======
+
+head(sort(atipicos_sueldo_anual$out, decreasing = TRUE), n=10)
+tail(sort(atipicos_sueldo_anual$out, decreasing = TRUE), n=10)
+>>>>>>> conclusiones
 ```
 
 Al ordenar los valores y analizarlos encontramos que los valores máximos que podrían considerarse outliers son los mayores o iguales a 208000. Sin embargo, para efectos del análisis vamos a considerar como valores a los no sobrepasan el límite de 500K. Por lo tanto, procedemos a borrar esas observaciones que contienen los valores superiores a el límite.
@@ -579,7 +601,13 @@ boxplot(as.numeric(data_wo_na$WorkWeekHrs), main="Valores para Horas trabajadas 
 Para la variable Age los valores extremos los obtenenmos de la siguiente manera:
 ```{r echo=TRUE, message=FALSE, warning=FALSE}
 atipicos_horas_semanales <- boxplot.stats(as.numeric(data_wo_na$WorkWeekHrs))
+<<<<<<< HEAD
 sort(atipicos_horas_semanales$out, decreasing = FALSE)
+=======
+
+head(sort(atipicos_horas_semanales$out, decreasing = FALSE), n=10)
+tail(sort(atipicos_horas_semanales$out, decreasing = FALSE), n=10)
+>>>>>>> conclusiones
 ```
 
 Al ordenar los valores y analizarlos encontramos que los valores máximos que podrían considerarse outliers son los mayores a 112 horas, ya que trabajar más de 16 horas diarias se encuentra poco probable. De la misma manera, se considera poco probable trabajar menos de una hora diaria (7 horas semanales, incluso en un trabajo a tiempo parcial). Por lo tanto, procedemos a borrar esas observaciones que contienen los valores superiores e inferiores a los límites mencionados.
@@ -604,7 +632,13 @@ boxplot(as.numeric(data_wo_na$YearsCodePro), main="Valores para Años Profesiona
 Para la variable Age los valores extremos los obtenenmos de la siguiente manera:
 ```{r echo=TRUE, message=FALSE, warning=FALSE}
 atipicos_years_pro <- boxplot.stats(as.numeric(data_wo_na$YearsCodePro))
+<<<<<<< HEAD
 sort(atipicos_years_pro$out, decreasing = TRUE)
+=======
+
+head(sort(atipicos_years_pro$out, decreasing = TRUE), n=10)
+tail(sort(atipicos_years_pro$out, decreasing = TRUE), n=10)
+>>>>>>> conclusiones
 ```
 
 Al ordenar los valores outliers de manera descendente, encontramos los valores en el rango entre 26 y 50 años. Sin embargo, yendo a la lógica actual en los años que podría tener un desarrollador no encontramos como valor atípico una experiencia comprendida entre los mencionados límites. Para verificar de manera más detallada esta variable, vamos a comparar la variable Age vs. la variable YearsCodePro para descartar alguna anormalidad, como que los años de profesional sean mayor a la edad actual o no haya lógica entre la una con la otra.
@@ -619,7 +653,14 @@ data_age_years_pro$diferencia <- 0
 for(i in 1:filas_ndf) {
   data_age_years_pro$diferencia[i] <- data_age_years_pro$Age[i] - data_age_years_pro$YearsCodePro[i]
 }
+<<<<<<< HEAD
 sort(data_age_years_pro$diferencia, decreasing = TRUE)
+=======
+
+
+head(sort(data_age_years_pro$diferencia, decreasing = TRUE), n=10)
+tail(sort(data_age_years_pro$diferencia, decreasing = TRUE), n=10)
+>>>>>>> conclusiones
 ```
 Todos los valores en las diferencias obtenidas son lógicos. Sin embargo, a pesar de encontrarse una diferencia mínima de 8 años entre la experiencia como profesional y la edad actual, sabemos de casos extremos de niños que pueden aprender a programar o cualquier otra habilidad a corta edad, por ende no eliminaremos ningún registro.
 
@@ -647,11 +688,18 @@ summary(data_wo_na)
 
 ## Comprobación de la normalidad y homogeneidad de la varianza
 
+<<<<<<< HEAD
 Para este apartado trabajaremos con un análisis visual mediante graficas que permiten observar la similitud entre las distribuciones de los datos y una distribución normal ideal, además realizaremos tests de Shapiro-Wilk para revalidar la normalidad de las variables, asumiremos como hipótesis nula que la población está distribuida normalmente, si el p-valor es menor  al nivel de significancia𝛼 = 0.05.
 
 
 ```{r echo=TRUE, message=FALSE, warning=FALSE}
 
+=======
+Para este apartado trabajaremos con un análisis visual mediante graficas que permiten observar la similitud entre las distribuciones de los datos y una distribución normal ideal, además realizaremos tests de Shapiro-Wilk para revalidar la normalidad de las variables, asumiremos como hipótesis nula que la población está distribuida normalmente, si el *p-valor* es menor al *nivel de significancia* **𝛼 = 0.05**.
+
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+>>>>>>> conclusiones
 #Grafica ConvertedComp
 qqnorm(data_wo_na$ConvertedComp)
 qqline(data_wo_na$ConvertedComp,col=2)
@@ -693,7 +741,11 @@ qqnorm(data_wo_na$web_techs)
 qqline(data_wo_na$web_techs,col=2)
 ```
 
+<<<<<<< HEAD
 Podemos observar en los histogramas que ninguno de los atributos se asemeja a una normal, el más cercano es el campo collab_techs.
+=======
+Podemos observar en los histogramas que ninguno de los atributos se asemeja a una normal, el más cercano es el campo **collab_techs**.
+>>>>>>> conclusiones
 
 Ahora comprobaremos mediante el test de shapiro si nuestra observación es correcta.
 
@@ -732,6 +784,7 @@ shapiro.test(data_wo_na_muestra$plat_techs)
 
 #Test web_techs
 shapiro.test(data_wo_na_muestra$web_techs)
+<<<<<<< HEAD
 
 ```
 
@@ -741,6 +794,16 @@ Mediante este test podemos concluir que ningun atributo sigue una distribucion n
 Para comprobar la homocedasticidad (igualdad de varianzas entre los grupos que se van a comparar) se pueden realizar dos tipos de test Levene y Fligner-Killeen, en nuestro caso como los datos no siguen una distribución normal usaremos  Fligner-Killeen.
 
 Compararemos la varianza de ConvertedComp entre los grupos de nivel_edad, EdLevel, Employment y NEWOvertime.
+=======
+```
+`r text_spec("Conclusión:", color = "red", font_size=12, bold = T)`
+
+Mediante este test podemos concluir que ningun atributo sigue una distribucion normal.
+
+Para comprobar la homocedasticidad (igualdad de varianzas entre los grupos que se van a comparar) se pueden realizar dos tipos de test *Levene* y *Fligner-Killeen*, en nuestro caso como los datos no siguen una distribución normal usaremos  *Fligner-Killeen*.
+
+Compararemos la varianza de **ConvertedComp** entre los grupos de *nivel_edad*, *EdLevel*, *Employment* y *NEWOvertime*.
+>>>>>>> conclusiones
 
 ```{r echo=TRUE, message=FALSE, warning=FALSE}
 #Homocedasticidad
@@ -748,25 +811,39 @@ fligner.test(ConvertedComp ~ nivel_edad, data = data_wo_na)
 fligner.test(ConvertedComp ~ EdLevel, data = data_wo_na)
 fligner.test(ConvertedComp ~ Employment, data = data_wo_na)
 fligner.test(ConvertedComp ~ NEWOvertime, data = data_wo_na)
+<<<<<<< HEAD
 
 ```
+=======
+```
+`r text_spec("Conclusión:", color = "red", font_size=12, bold = T)`
+>>>>>>> conclusiones
 Dado que en todos los casos el valor de p-value es inferior a 0.05 se no se acepta la hipótesis de que las varianzas son homogéneas. 
 
 ## Pruebas estadísticas
 
 ### Comparación entre más de dos grupos
 
+<<<<<<< HEAD
 En este caso queremos conocer si el número de lenguajes de programación que maneja un programador es similar en las situaciones laborales que se puedan tener (FULL_TIME,PART_TIME,FREELANCER, etc.). 
 
 Para esto usaremos la prueba de Kruskal-Wallis, que es un método no paramétrico que busca probar si un grupo de datos proviene de una misma población.
 
 ```{r echo=TRUE, message=FALSE, warning=FALSE}
 
+=======
+En este caso queremos conocer si el número de lenguajes de programación que maneja un programador es similar en las situaciones laborales que se puedan tener (FULL_TIME, PART_TIME, FREELANCER, etc.).
+
+Para esto usaremos la prueba de *Kruskal-Wallis*, que es un método no paramétrico que busca probar si un grupo de datos proviene de una misma población.
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+>>>>>>> conclusiones
 #Prueba de Kruskal-Wallis entre prog_langs y Employment
 kruskal.test(prog_langs ~ Employment, data = data_wo_na)
 
 #Representación visual
 boxplot(data_wo_na$prog_langs~data_wo_na$Employment, ylab="IGF-I",xlab="Employment")
+<<<<<<< HEAD
 
 
 ```
@@ -778,6 +855,16 @@ El valor de p-valor obtenido es menor al nivel de significancia se puede conclui
 En nuestra búsqueda de conocer cómo se relacionan los distintos atributos del dataset buscaremos la correlación que existe entre estos campos, dado que nuestros valores son no paramétricos, utilizaremos la correlación de Spearman.
 ```{r echo=TRUE, message=FALSE, warning=FALSE}
 
+=======
+```
+
+El valor de *p-value* obtenido es menor al nivel de significancia se puede concluir que el número de lenguajes que maneja un programador dado su tipo de trabajo es diferente dependiendo de los tipos de situaciones laborales que se estén.
+
+### Correlación  con el salario
+
+En nuestra búsqueda de conocer cómo se relacionan los distintos atributos del dataset buscaremos la correlación que existe entre estos campos, dado que nuestros valores son no paramétricos, utilizaremos la *correlación de Spearman*.
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+>>>>>>> conclusiones
 #Correlación ConvertedComp-Age
 cor.test(data_wo_na$ConvertedComp,data_wo_na$Age, method="spearman")
 
@@ -819,6 +906,7 @@ text(paste("Correlación:", round(cor(data_wo_na$ConvertedComp, data_wo_na$Years
 plot(data_wo_na$ConvertedComp, data_wo_na$WorkWeekHrs, pch = 19, col = "lightblue")
 abline(lm(data_wo_na$WorkWeekHrs ~ data_wo_na$ConvertedComp), col = "red", lwd = 3)
 text(paste("Correlación:", round(cor(data_wo_na$ConvertedComp, data_wo_na$WorkWeekHrs, method="spearman"), 2)), x = 25, y = 95)
+<<<<<<< HEAD
 
 
 ```
@@ -828,6 +916,18 @@ Vemos que los atributos de Age y YearsCodePro obtuvieron las correlaciones más 
 ### Regresión lineal y multiple
 
 En el paso anterior hemos conocido los campos que están más relacionados, ahora usaremos un método de regresión para poder conocer el salario de los programadores a través de otras variables.
+=======
+```
+
+`r text_spec("Conclusión:", color = "red", font_size=12, bold = T)`
+
+Vemos que los atributos de **Age** y **YearsCodePro** obtuvieron las correlaciones más grandes respecto al salario (0.45-0.46) y los atributos **WorkWeekHrs-db_techs** fueron los que menos correlación tienen, esto nos da a entender el número de horas trabajadas no explica tanto el salario de los programadores, al igual que el número de tecnologías que manejan.
+
+
+### Regresión lineal y multiple
+
+En el paso anterior hemos conocido los campos que están más relacionados, ahora usaremos un método de regresión para poder conocer el salario (**ConvertedComp**) de los programadores a través de otras variables.
+>>>>>>> conclusiones
 
 Atributos cuantitativos
 
@@ -866,6 +966,7 @@ m5 = lm(ConvertedComp ~ Age + EdLevel,data=data_wo_na_select)
 m6 = lm(ConvertedComp ~ WorkWeekHrs + Employment,data=data_wo_na_select)
 
 m7 <- lm(ConvertedComp ~ ., data = data_wo_na_select)
+<<<<<<< HEAD
 
 
 #Coeficientes de determinación
@@ -915,3 +1016,68 @@ predict(m4, test_2)
 Dados los resultados obtenidos en las pruebas que hemos realizado los resultados no han sido del todo satisfactorio ya que hemos encontrado una baja correlación entre los atributos de nuestro dataset lo que ha limitado la capacidad de predicción de los modelos de regresión lineal simple y múltiple, obteniendo solo un 44% de capacidad de acierto en la predicción de los salarios bajo los atributos de YearsCodePro y Country, por otra parte, el ejercicio de comparación entre grupos nos dice que el numero de lenguajes de programación aprendidos va a depender de la situación laboral, lo que tiene sentido. Siguiendo esta misma línea, los resultados no son extremos, sino que igual se ve una coloración en los trabajos full time y freelancer, lo que da a entender que estas personas tienen mayor experiencia que un part time.
 Los resultados de nuestros modelos quizás no han sido tan buenos, pero nos ha permitido visualizar la importancia de que la información que estemos usando como fuente tenga la menor cantidad de valores ausentes posibles, ya que con los tratamientos de integración y limpieza se puede mejorar estos resultados de forma estratégica, pero siempre nos estarán alejando de resultados fundamentados en los datos de origen. 
 
+=======
+```
+
+# Representación de los resultados a partir de tablas y gráficas
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+#Coeficientes de determinación
+tabla.coeficientes <- matrix(c(1, summary(m1)$r.squared,
+                              2, summary(m2)$r.squared,
+                              3, summary(m3)$r.squared,
+                              4, summary(m4)$r.squared,
+                              5, summary(m5)$r.squared,
+                              6, summary(m6)$r.squared,
+                              7,summary(m7)$r.squared),
+                              ncol = 2, byrow = TRUE)
+
+colnames(tabla.coeficientes) <- c("Modelo", "R^2")
+tabla.coeficientes
+
+#Grafica modelo
+qqnorm(m4$residuals)
+qqline(m4$residuals)
+
+```
+
+`r text_spec("Conclusión:", color = "red", font_size=12, bold = T)`
+
+Vemos que los coeficientes no han salido tan altos, en este caso los modelos 4 y 7 son los que han dado mejores resultados con 44% de capacidad de predicción, en este caso nos quedamos con el modelo 4 ya que el 7 contiene todos los atributos y no estaríamos reduciendo entradas. 
+
+Se aplican 2 test con el modelo 4 para ver su funcionalidad.
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+#Test usando el modelo 4
+test_1 <- data.frame(
+  YearsCodePro = 10,
+  Country = "United States"
+)
+# Predecir salario
+predict(m4, test_1)
+
+
+test_2 <- data.frame(
+  YearsCodePro = 10,
+  Country = "France"
+)
+# Predecir salario
+predict(m4, test_2)
+```
+
+# Conclusiones
+
+Dados los resultados obtenidos en las pruebas que hemos realizado los resultados no han sido del todo satisfactorio ya que hemos encontrado una baja correlación entre los atributos de nuestro dataset lo que ha limitado la capacidad de predicción de los modelos de regresión lineal simple y múltiple, obteniendo solo un 44% de capacidad de acierto en la predicción de los salarios bajo los atributos de *YearsCodePro* y *Country*, por otra parte, el ejercicio de comparación entre grupos nos dice que el numero de lenguajes de programación aprendidos va a depender de la situación laboral, lo que tiene sentido. 
+
+Siguiendo esta misma línea, los resultados no son extremos, sino que igual se ve una coloración en los trabajos full time y freelancer, lo que da a entender que estas personas tienen mayor experiencia que un part time.
+
+El salario depende en gran medida de muchas variables técnicas y socio demográficas. Al tener encuestados de varios países, donde las condiciones socio demográficas son muy distintas entre ellos, sin duda influye en el desarrollo de habilidades técnicas que garanticen un salario adecuado. Quizás al realizar un análisis más específico a los encuestados de un país determinado se mejore la capacidad predictiva en los salarios.
+
+Quizás al tener una variable donde se detalle el nivel del idioma inglés que domine el encuestado se hubiera podido realizar una análisis más específico. También es importante reconocer que la comunidad de StackOverflow no solo se compone de desarrolladores, sino de un conjunto variado de perfiles técnicos que a diario usan el sistema de preguntas/respuestas. Algunos perfiles enfocados más a la investigación o ciencia pueden verse beneficiados al tener salarios más altos que un simple programador.
+
+Los resultados de nuestros modelos quizás no han sido tan buenos, pero nos ha permitido visualizar la importancia de que la información que estemos usando como fuente tenga la menor cantidad de valores ausentes posibles, ya que con los tratamientos de integración y limpieza se puede mejorar estos resultados de forma estratégica, pero siempre nos estarán alejando de resultados fundamentados en los datos de origen. 
+
+# Código
+
+El código fuente y el dataset usado para el análisis presentado en este documento se encuentra disponible en el siguiente repositorio de GitHub: https://github.com/gpbonillas/stackoverflow2020
+>>>>>>> conclusiones

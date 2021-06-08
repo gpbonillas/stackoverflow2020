@@ -18,9 +18,17 @@ Son aproximadamente 65000 respuestas presentadas desde 180 países y territorios
 La estructura general del proyecto es la siguiente:
 
 * **src**: Esta carpeta contiene:
-* **data**: Contiene el dataset survey_results_public.csv original
+  * **PRA2.Rmd**: Proyecto RStudio en lenguaje RMarkdown. Use RStudio para abrir y editar el archivo.
+  * **75.584-PEC-header.html**: Encabezado del archivo final que genera el archivo del proyecto.
+* **data**: Contiene el dataset *survey_results_public.csv* original
+* **docs**: Contiene los archivos PDF y HTML del proyecto generados desde RStudio.
 * **LICENSE**: Archivo que contiene la declaración de la licencia usada para este proyecto. En este caso se ha usado la licencia MIT.
 * **README.md**: Archivo que contiene una breve descripción del proyecto
+
+## Licencia
+
+* Licencia del repositorio: *MIT License*
+* Licencia del dataset: *Open Database License* [ODbL](http://opendatacommons.org/licenses/odbl/1.0/). You are free to share, adapt, and create derivative works from The Public 2020 Stack Overflow Developer Survey Results as long as you attribute Stack Overflow, keep the database open (if you redistribute it), and continue to share-alike any adapted database under the ODbl.
 
 ## Información adicional
 Para mayor información del proyecto visite la [Wiki Oficial](https://github.com/gpbonillas/stackoverflow2020/wiki)
